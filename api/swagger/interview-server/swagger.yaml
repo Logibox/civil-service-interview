@@ -1,0 +1,48 @@
+swagger: '2.0'
+basePath: /v1
+info:
+  title: interview api
+  version: "0.1"
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /city/{city}/users:
+    get:
+      operationId: GetUsersInCity
+      parameters:
+      - in: path
+        name: city
+        required: true
+        type: string
+      - in: query
+        name: within
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserList'
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      ip_address:
+        type: string
+      latitude:
+        type: number
+      longitude:
+        type: number
+  UserList:
+    type: array
+    items:
+      $ref: '#/definitions/User'
