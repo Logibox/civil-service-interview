@@ -1,0 +1,101 @@
+# Extended version of https://bpdts-test-app.herokuapp.com/swagger.json with response schemas
+swagger: '2.0'
+host: bpdts-test-app.herokuapp.com
+basePath: /
+schemes:
+- https
+info:
+  title: API
+  version: '1.0'
+tags:
+- description: Default namespace
+  name: default
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /city/{city}/users:
+    get:
+      operationId: GetUsersInCity
+      parameters:
+      - name: city
+        in: path
+        type: string
+        required: true
+      tags:
+      - default
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/UserList'
+  /instructions:
+    get:
+      operationId: GetInstructions
+      responses:
+        '200':
+          description: Success
+      tags:
+      - default
+  /user/{id}:
+    get:
+      operationId: GetUser
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Not Found
+      tags:
+      - default
+  /users:
+    get:
+      operationId: GetAllUsers
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/UserList'
+      tags:
+      - default
+responses:
+  MaskError:
+    description: When any error occurs on mask
+  ParseError:
+    description: When a mask can't be parsed
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      ip_address:
+        type: string
+      latitude:
+        $ref: '#/definitions/NumberOrString'
+      longitude:
+        $ref: '#/definitions/NumberOrString'
+  UserList:
+    type: array
+    items:
+      $ref: '#/definitions/User'
+  # Work around the fact that api sometimes returns strings instead of numbers
+  NumberOrString:
+    type: number
+    x-go-type:
+      import:
+        package: "github.com/Logibox/civil-service-interview/v1/numorstr"
+      type: NumberOrString
