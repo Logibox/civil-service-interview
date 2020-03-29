@@ -4,6 +4,10 @@ SWAGGER_DIR?=swagger
 .PHONY: all
 all: ${BIN_DIR}/interview-api-server
 
+.PHONE: test
+test:
+	go test -v ./...
+
 .PHONY: clean
 clean:
 	rm -rf ${BIN_DIR}
