@@ -1,11 +1,11 @@
 SWAGGER_DIR?=api/swagger
 
 ${SWAGGER_DIR}/bpdts-test-app/.codegen: ${SWAGGER_DIR}/bpdts-test-app/swagger.yaml
-	swagger generate client --spec $< --target ${SWAGGER_DIR}/bpdts-test-app
+	swagger generate client --spec $< --target bpdts
 	touch $@
 
 ${SWAGGER_DIR}/interview-server/.codegen: ${SWAGGER_DIR}/interview-server/swagger.yaml
-	swagger generate server --spec $< --target ${SWAGGER_DIR}/interview-server
+	swagger generate server --spec $<
 	touch $@
 
 .PHONY: build

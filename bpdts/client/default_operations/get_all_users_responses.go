@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/Logibox/civil-service-interview/v1/api/swagger/bpdts-test-app/models"
+	"github.com/Logibox/civil-service-interview/v1/bpdts/models"
 )
 
 // GetAllUsersReader is a Reader for the GetAllUsers structure.

@@ -10,7 +10,7 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/Logibox/civil-service-interview/v1/api/swagger/bpdts-test-app/client/default_operations"
+	"github.com/Logibox/civil-service-interview/v1/bpdts/client/default_operations"
 )
 
 // Default  HTTP client.

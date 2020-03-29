@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/Logibox/civil-service-interview/v1/api/swagger/interview-server/models"
+	"github.com/Logibox/civil-service-interview/v1/models"
 )
 
 // GetUsersInCityOKCode is the HTTP code returned for type GetUsersInCityOK

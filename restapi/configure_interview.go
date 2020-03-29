@@ -10,10 +10,10 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/Logibox/civil-service-interview/v1/api/swagger/interview-server/restapi/operations"
+	"github.com/Logibox/civil-service-interview/v1/restapi/operations"
 )
 
-//go:generate swagger generate server --target ../../interview-server --name Interview --spec ../swagger.yaml
+//go:generate swagger generate server --target ../../civil-service-interview --name Interview --spec ../api/swagger/interview-server/swagger.yaml
 
 func configureFlags(api *operations.InterviewAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }

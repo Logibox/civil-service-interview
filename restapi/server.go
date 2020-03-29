@@ -25,7 +25,7 @@ import (
 	flags "github.com/jessevdk/go-flags"
 	"golang.org/x/net/netutil"
 
-	"github.com/Logibox/civil-service-interview/v1/api/swagger/interview-server/restapi/operations"
+	"github.com/Logibox/civil-service-interview/v1/restapi/operations"
 )
 
 const (

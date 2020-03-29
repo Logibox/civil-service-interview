@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/Logibox/civil-service-interview/v1/api/swagger/interview-server/restapi"
-	"github.com/Logibox/civil-service-interview/v1/api/swagger/interview-server/restapi/operations"
+	"github.com/Logibox/civil-service-interview/v1/restapi"
+	"github.com/Logibox/civil-service-interview/v1/restapi/operations"
 	"github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"
 )
