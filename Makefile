@@ -1,8 +1,12 @@
 BIN_DIR=.bin
-SWAGGER_DIR?=api/swagger
+SWAGGER_DIR?=swagger
 
 .PHONY: all
 all: ${BIN_DIR}/interview-api-server
+
+.PHONY: clean
+clean:
+	rm -rf ${BIN_DIR}
 
 ${SWAGGER_DIR}/bpdts-test-app/.codegen: ${SWAGGER_DIR}/bpdts-test-app/swagger.yaml
 	swagger generate client --spec $< --target bpdts
