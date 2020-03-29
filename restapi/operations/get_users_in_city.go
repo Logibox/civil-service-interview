@@ -9,6 +9,8 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // GetUsersInCityHandlerFunc turns a function with the right signature into a get users in city handler
@@ -55,4 +57,36 @@ func (o *GetUsersInCity) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 	o.Context.Respond(rw, r, route.Produces, route, res)
 
+}
+
+// GetUsersInCityInternalServerErrorBody get users in city internal server error body
+//
+// swagger:model GetUsersInCityInternalServerErrorBody
+type GetUsersInCityInternalServerErrorBody struct {
+
+	// message
+	Message string `json:"message,omitempty"`
+}
+
+// Validate validates this get users in city internal server error body
+func (o *GetUsersInCityInternalServerErrorBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetUsersInCityInternalServerErrorBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetUsersInCityInternalServerErrorBody) UnmarshalBinary(b []byte) error {
+	var res GetUsersInCityInternalServerErrorBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
 }

@@ -15,10 +15,21 @@ import (
 )
 
 // NewGetUsersInCityParams creates a new GetUsersInCityParams object
-// no default values defined in spec.
+// with the default values initialized.
 func NewGetUsersInCityParams() GetUsersInCityParams {
 
-	return GetUsersInCityParams{}
+	var (
+		// initialize parameters with default values
+
+		countryDefault = string("UK")
+		withinDefault  = string("50 miles")
+	)
+
+	return GetUsersInCityParams{
+		Country: &countryDefault,
+
+		Within: &withinDefault,
+	}
 }
 
 // GetUsersInCityParams contains all the bound params for the get users in city operation
@@ -37,6 +48,12 @@ type GetUsersInCityParams struct {
 	City string
 	/*
 	  In: query
+	  Default: "UK"
+	*/
+	Country *string
+	/*
+	  In: query
+	  Default: "50 miles"
 	*/
 	Within *string
 }
@@ -54,6 +71,11 @@ func (o *GetUsersInCityParams) BindRequest(r *http.Request, route *middleware.Ma
 
 	rCity, rhkCity, _ := route.Params.GetOK("city")
 	if err := o.bindCity(rCity, rhkCity, route.Formats); err != nil {
+		res = append(res, err)
+	}
+
+	qCountry, qhkCountry, _ := qs.GetOK("country")
+	if err := o.bindCountry(qCountry, qhkCountry, route.Formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -83,6 +105,25 @@ func (o *GetUsersInCityParams) bindCity(rawData []string, hasKey bool, formats s
 	return nil
 }
 
+// bindCountry binds and validates parameter Country from query.
+func (o *GetUsersInCityParams) bindCountry(rawData []string, hasKey bool, formats strfmt.Registry) error {
+	var raw string
+	if len(rawData) > 0 {
+		raw = rawData[len(rawData)-1]
+	}
+
+	// Required: false
+	// AllowEmptyValue: false
+	if raw == "" { // empty values pass all other validations
+		// Default values have been previously initialized by NewGetUsersInCityParams()
+		return nil
+	}
+
+	o.Country = &raw
+
+	return nil
+}
+
 // bindWithin binds and validates parameter Within from query.
 func (o *GetUsersInCityParams) bindWithin(rawData []string, hasKey bool, formats strfmt.Registry) error {
 	var raw string
@@ -93,6 +134,7 @@ func (o *GetUsersInCityParams) bindWithin(rawData []string, hasKey bool, formats
 	// Required: false
 	// AllowEmptyValue: false
 	if raw == "" { // empty values pass all other validations
+		// Default values have been previously initialized by NewGetUsersInCityParams()
 		return nil
 	}
 

@@ -59,3 +59,47 @@ func (o *GetUsersInCityOK) WriteResponse(rw http.ResponseWriter, producer runtim
 		panic(err) // let the recovery middleware deal with this
 	}
 }
+
+// GetUsersInCityInternalServerErrorCode is the HTTP code returned for type GetUsersInCityInternalServerError
+const GetUsersInCityInternalServerErrorCode int = 500
+
+/*GetUsersInCityInternalServerError Error
+
+swagger:response getUsersInCityInternalServerError
+*/
+type GetUsersInCityInternalServerError struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *GetUsersInCityInternalServerErrorBody `json:"body,omitempty"`
+}
+
+// NewGetUsersInCityInternalServerError creates GetUsersInCityInternalServerError with default headers values
+func NewGetUsersInCityInternalServerError() *GetUsersInCityInternalServerError {
+
+	return &GetUsersInCityInternalServerError{}
+}
+
+// WithPayload adds the payload to the get users in city internal server error response
+func (o *GetUsersInCityInternalServerError) WithPayload(payload *GetUsersInCityInternalServerErrorBody) *GetUsersInCityInternalServerError {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the get users in city internal server error response
+func (o *GetUsersInCityInternalServerError) SetPayload(payload *GetUsersInCityInternalServerErrorBody) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *GetUsersInCityInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(500)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
+}

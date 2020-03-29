@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/Logibox/civil-service-interview/v1/restapi/operations"
+	csi "github.com/Logibox/civil-service-interview/v1"
 )
 
 //go:generate swagger generate server --target ../../civil-service-interview --name Interview --spec ../api/swagger/interview-server/swagger.yaml
@@ -33,11 +34,7 @@ func configureAPI(api *operations.InterviewAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	if api.GetUsersInCityHandler == nil {
-		api.GetUsersInCityHandler = operations.GetUsersInCityHandlerFunc(func(params operations.GetUsersInCityParams) middleware.Responder {
-			return middleware.NotImplemented("operation operations.GetUsersInCity has not yet been implemented")
-		})
-	}
+	api.GetUsersInCityHandler = operations.GetUsersInCityHandlerFunc(GetUsersInCityImpl)
 
 	api.PreServerShutdown = func() {}
 
@@ -68,4 +65,16 @@ func setupMiddlewares(handler http.Handler) http.Handler {
 // So this is a good place to plug in a panic handling middleware, logging and metrics
 func setupGlobalMiddleware(handler http.Handler) http.Handler {
 	return handler
+}
+
+func GetUsersInCityImpl(params operations.GetUsersInCityParams) middleware.Responder {
+	within, err := csi.ParseDistanceString(*params.Within)
+	if err != nil {
+		return operations.NewGetUsersInCityInternalServerError().WithPayload(&operations.GetUsersInCityInternalServerErrorBody{Message: err.Error()})
+	}
+	users, err := csi.FindUsers(params.City, *params.Country, within)
+	if err != nil {
+		return operations.NewGetUsersInCityInternalServerError().WithPayload(&operations.GetUsersInCityInternalServerErrorBody{Message: err.Error()})
+	}
+	return &operations.GetUsersInCityOK{Payload: users}
 }

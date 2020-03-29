@@ -16,7 +16,8 @@ import (
 type GetUsersInCityURL struct {
 	City string
 
-	Within *string
+	Country *string
+	Within  *string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -58,6 +59,14 @@ func (o *GetUsersInCityURL) Build() (*url.URL, error) {
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
 
 	qs := make(url.Values)
+
+	var countryQ string
+	if o.Country != nil {
+		countryQ = *o.Country
+	}
+	if countryQ != "" {
+		qs.Set("country", countryQ)
+	}
 
 	var withinQ string
 	if o.Within != nil {

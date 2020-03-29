@@ -43,7 +43,14 @@ func init() {
           },
           {
             "type": "string",
+            "default": "50 miles",
             "name": "within",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "UK",
+            "name": "country",
             "in": "query"
           }
         ],
@@ -52,6 +59,17 @@ func init() {
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/UserList"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -119,7 +137,14 @@ func init() {
           },
           {
             "type": "string",
+            "default": "50 miles",
             "name": "within",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "UK",
+            "name": "country",
             "in": "query"
           }
         ],
@@ -128,6 +153,17 @@ func init() {
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/UserList"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
             }
           }
         }

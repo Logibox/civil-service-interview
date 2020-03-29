@@ -1,4 +1,8 @@
+BIN_DIR=.bin
 SWAGGER_DIR?=api/swagger
+
+.PHONY: all
+all: ${BIN_DIR}/interview-api-server
 
 ${SWAGGER_DIR}/bpdts-test-app/.codegen: ${SWAGGER_DIR}/bpdts-test-app/swagger.yaml
 	swagger generate client --spec $< --target bpdts
@@ -8,6 +12,8 @@ ${SWAGGER_DIR}/interview-server/.codegen: ${SWAGGER_DIR}/interview-server/swagge
 	swagger generate server --spec $<
 	touch $@
 
-.PHONY: build
-build: ${SWAGGER_DIR}/bpdts-test-app/.codegen ${SWAGGER_DIR}/interview-server/.codegen
-	go build ./
+${BIN_DIR}:
+	mkdir -p ${BIN_DIR}
+
+${BIN_DIR}/interview-api-server: ${BIN_DIR} ${SWAGGER_DIR}/bpdts-test-app/.codegen ${SWAGGER_DIR}/interview-server/.codegen
+	go build -o $@ ./cmd/interview-api-server

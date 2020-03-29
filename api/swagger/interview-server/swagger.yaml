@@ -19,11 +19,23 @@ paths:
       - in: query
         name: within
         type: string
+        default: "50 miles"
+      - in: query
+        name: country
+        type: string
+        default: "UK"
       responses:
         '200':
           description: OK
           schema:
             $ref: '#/definitions/UserList'
+        '500':
+          description: Error
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
 definitions:
   User:
     type: object
